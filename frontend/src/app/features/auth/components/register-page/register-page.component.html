@@ -1,0 +1,69 @@
+<div class="auth-page">
+  <div class="auth-card">
+    <h1>{{ t.t('auth.registerTitle') }}</h1>
+    <p class="subtitle">{{ t.t('auth.registerSubtitle') }}</p>
+
+    @if (errorMessage) {
+      <p class="error-msg">{{ errorMessage }}</p>
+    }
+
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label>{{ t.t('auth.username') }}</label>
+        <input
+          type="text"
+          [(ngModel)]="username"
+          name="username"
+          [placeholder]="t.t('auth.usernamePlaceholder')"
+          autocomplete="username"
+        />
+      </div>
+
+      <div class="form-group">
+        <label>{{ t.t('auth.email') }}</label>
+        <input
+          type="email"
+          [(ngModel)]="email"
+          name="email"
+          [placeholder]="t.t('auth.emailPlaceholder')"
+          autocomplete="email"
+        />
+      </div>
+
+      <div class="form-group">
+        <label>{{ t.t('auth.password') }}</label>
+        <input
+          type="password"
+          [(ngModel)]="password"
+          name="password"
+          [placeholder]="t.t('auth.passwordPlaceholder')"
+          autocomplete="new-password"
+        />
+      </div>
+
+      <div class="form-group">
+        <label>{{ t.t('auth.confirmPassword') }}</label>
+        <input
+          type="password"
+          [(ngModel)]="confirmPassword"
+          name="confirmPassword"
+          [placeholder]="t.t('auth.confirmPasswordPlaceholder')"
+          autocomplete="new-password"
+        />
+      </div>
+
+      <button type="submit" class="btn btn--primary btn--full" [disabled]="isLoading">
+        @if (isLoading) {
+          {{ t.t('common.loading') }}
+        } @else {
+          {{ t.t('auth.registerButton') }}
+        }
+      </button>
+    </form>
+
+    <p class="auth-switch">
+      {{ t.t('auth.hasAccount') }}
+      <a routerLink="/login">{{ t.t('auth.signIn') }}</a>
+    </p>
+  </div>
+</div>

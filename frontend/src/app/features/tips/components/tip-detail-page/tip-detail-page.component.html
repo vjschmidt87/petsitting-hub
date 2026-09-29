@@ -1,0 +1,43 @@
+<div class="tip-detail-page">
+  <a routerLink="/tips" class="back-link">&larr; {{ t.t('tips.backToList') }}</a>
+
+  @if (loading) {
+    <div class="center-message">{{ t.t('common.loading') }}</div>
+  } @else if (error) {
+    <div class="center-message error">{{ error }}</div>
+  } @else if (tip) {
+    <article class="tip-article">
+      <div class="tip-meta-bar">
+        <span class="animal-emoji">{{ getEmoji() }}</span>
+        <span class="badge badge--primary">{{ t.t('categories.' + tip.category) }}</span>
+        <span class="badge badge--info">{{ t.t('difficulty.' + tip.difficulty) }}</span>
+        <span class="animal-name">{{ t.t('animals.' + tip.animalType) }}</span>
+      </div>
+
+      <h1 class="tip-title">{{ getTitle() }}</h1>
+
+      <div class="tip-info">
+        <span>{{ t.t('tips.by') }} <strong>{{ tip.authorUsername }}</strong></span>
+        <span class="separator">&middot;</span>
+        <span>{{ t.t('tips.publishedOn') }} {{ tip.createdAt | date:'mediumDate' }}</span>
+        @if (tip.updatedAt !== tip.createdAt) {
+          <span class="separator">&middot;</span>
+          <span>{{ t.t('tips.lastUpdated') }} {{ tip.updatedAt | date:'mediumDate' }}</span>
+        }
+      </div>
+
+      <div class="tip-content">{{ getContent() }}</div>
+    </article>
+
+    @if (relatedTips.length > 0) {
+      <section class="related-section">
+        <h2>{{ t.t('tips.relatedTips') }}</h2>
+        <div class="related-grid">
+          @for (related of relatedTips; track related.id) {
+            <app-tip-card [tip]="related"></app-tip-card>
+          }
+        </div>
+      </section>
+    }
+  }
+</div>

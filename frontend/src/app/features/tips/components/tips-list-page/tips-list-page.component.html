@@ -1,0 +1,78 @@
+<div class="tips-page">
+  <h1 class="page-title">{{ t.t('tips.title') }}</h1>
+
+  <!-- Filter Bar -->
+  <div class="filter-bar">
+    <!-- Animal type buttons -->
+    <div class="animal-filters">
+      <button
+        class="filter-chip"
+        [class.active]="!selectedAnimalType"
+        (click)="selectAnimalType(null)">
+        {{ t.t('tips.filterByAnimal') }}
+      </button>
+      @for (type of animalTypes; track type) {
+        <button
+          class="filter-chip"
+          [class.active]="selectedAnimalType === type"
+          (click)="selectAnimalType(type)">
+          {{ animalEmojis[type] }} {{ t.t('animals.' + type) }}
+        </button>
+      }
+    </div>
+
+    <div class="filter-row">
+      <!-- Search -->
+      <div class="search-field">
+        <input
+          type="text"
+          [(ngModel)]="searchTerm"
+          (ngModelChange)="onSearchChange()"
+          [placeholder]="t.t('tips.searchPlaceholder')"
+        />
+      </div>
+
+      <!-- Category -->
+      <select [(ngModel)]="selectedCategory" (ngModelChange)="applyFilters()">
+        <option [ngValue]="null">{{ t.t('tips.filterByCategory') }}</option>
+        @for (cat of categories; track cat) {
+          <option [ngValue]="cat">{{ t.t('categories.' + cat) }}</option>
+        }
+      </select>
+
+      <!-- Difficulty -->
+      <select [(ngModel)]="selectedDifficulty" (ngModelChange)="applyFilters()">
+        <option [ngValue]="null">{{ t.t('tips.filterByDifficulty') }}</option>
+        @for (diff of difficulties; track diff) {
+          <option [ngValue]="diff">{{ t.t('difficulty.' + diff) }}</option>
+        }
+      </select>
+    </div>
+
+    @if (hasActiveFilters()) {
+      <button class="btn btn--outline btn--sm clear-btn" (click)="clearFilters()">
+        {{ t.t('tips.clearFilters') }}
+      </button>
+    }
+  </div>
+
+  <!-- Results -->
+  @if (loading) {
+    <div class="center-message">{{ t.t('common.loading') }}</div>
+  } @else if (tips.length === 0) {
+    <div class="empty-state">
+      <p>{{ t.t('tips.noResults') }}</p>
+      @if (hasActiveFilters()) {
+        <button class="btn btn--primary" (click)="clearFilters()">
+          {{ t.t('tips.clearFilters') }}
+        </button>
+      }
+    </div>
+  } @else {
+    <div class="tips-grid">
+      @for (tip of tips; track tip.id) {
+        <app-tip-card [tip]="tip"></app-tip-card>
+      }
+    </div>
+  }
+</div>

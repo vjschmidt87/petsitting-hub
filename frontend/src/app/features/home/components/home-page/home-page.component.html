@@ -1,0 +1,64 @@
+<div class="home-page">
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">{{ t.t('home.heroTitle') }}</h1>
+      <p class="hero-subtitle">{{ t.t('home.heroSubtitle') }}</p>
+      <a routerLink="/tips" class="btn btn--primary">{{ t.t('home.exploreTips') }}</a>
+    </div>
+    <div class="hero-illustration">🐕 🐱 🐦 🦎 🐾</div>
+  </section>
+
+  <!-- Animal Types Section -->
+  <section class="section">
+    <div class="section-header">
+      <h2>{{ t.t('home.animalSectionTitle') }}</h2>
+      <p>{{ t.t('home.animalSectionSubtitle') }}</p>
+    </div>
+    <div class="animal-grid">
+      @for (type of animalTypes; track type) {
+        <app-animal-card
+          [animalType]="type"
+          [tipCount]="getTipCount(type)"
+        ></app-animal-card>
+      }
+    </div>
+  </section>
+
+  <!-- Featured Tips Section -->
+  @if (featuredTips.length > 0) {
+    <section class="section">
+      <div class="section-header">
+        <h2>{{ t.t('home.featuredTitle') }}</h2>
+        <p>{{ t.t('home.featuredSubtitle') }}</p>
+      </div>
+      <div class="tips-grid">
+        @for (tip of featuredTips; track tip.id) {
+          <app-tip-card [tip]="tip"></app-tip-card>
+        }
+      </div>
+      <div class="section-action">
+        <a routerLink="/tips" class="btn btn--outline">{{ t.t('home.viewAll') }}</a>
+      </div>
+    </section>
+  }
+
+  <!-- Stats Section -->
+  <section class="stats-section">
+    <h2>{{ t.t('home.statsTitle') }}</h2>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-number">{{ totalTips }}</span>
+        <span class="stat-label">{{ t.t('home.totalTips') }}</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number">5</span>
+        <span class="stat-label">{{ t.t('home.animalTypes') }}</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number">1K+</span>
+        <span class="stat-label">{{ t.t('home.happyPets') }}</span>
+      </div>
+    </div>
+  </section>
+</div>

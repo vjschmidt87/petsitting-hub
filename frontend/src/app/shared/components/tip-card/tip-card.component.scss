@@ -1,0 +1,61 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.tip-card {
+  @include card;
+  @include flex-column;
+  gap: $spacing-sm;
+  text-decoration: none;
+  transition: transform $transition-fast, box-shadow $transition-fast;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px var(--shadow-color);
+  }
+}
+
+.tip-header {
+  @include flex-between;
+
+  .animal-emoji { font-size: $font-size-xl; }
+}
+
+.tip-badges {
+  display: flex;
+  gap: $spacing-xs;
+}
+
+.tip-title {
+  font-size: $font-size-md;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.tip-summary {
+  font-size: $font-size-sm;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.tip-footer {
+  @include flex-between;
+  margin-top: auto;
+  padding-top: $spacing-sm;
+  border-top: 1px solid var(--border-color);
+
+  .tip-author {
+    font-size: $font-size-xs;
+    color: var(--text-muted);
+  }
+
+  .tip-read-more {
+    font-size: $font-size-xs;
+    font-weight: 600;
+    color: var(--primary);
+  }
+}

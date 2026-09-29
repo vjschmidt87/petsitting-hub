@@ -1,0 +1,96 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.pets-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: $spacing-xl $spacing-lg;
+}
+
+.page-header {
+  @include flex-between;
+  margin-bottom: $spacing-xl;
+
+  h1 {
+    font-size: $font-size-2xl;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  @include flex-center;
+  z-index: 100;
+}
+
+.dialog {
+  @include card;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  @include scrollbar;
+
+  h2 {
+    font-size: $font-size-xl;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: $spacing-lg;
+  }
+}
+
+.form-error {
+  color: var(--danger);
+  font-size: $font-size-sm;
+  margin-bottom: $spacing-md;
+}
+
+.form-row {
+  display: flex;
+  gap: $spacing-md;
+
+  .form-group { flex: 1; }
+}
+
+.dialog-actions {
+  display: flex;
+  gap: $spacing-md;
+  justify-content: flex-end;
+  margin-top: $spacing-lg;
+}
+
+.pets-list {
+  @include flex-column;
+  gap: $spacing-md;
+}
+
+.center-message {
+  text-align: center;
+  padding: $spacing-2xl;
+  color: var(--text-muted);
+}
+
+.empty-state {
+  text-align: center;
+  padding: $spacing-2xl;
+
+  .empty-icon {
+    font-size: 4rem;
+    display: block;
+    margin-bottom: $spacing-md;
+  }
+
+  p {
+    color: var(--text-secondary);
+    font-size: $font-size-md;
+  }
+
+  .hint {
+    color: var(--text-muted);
+    font-size: $font-size-sm;
+    margin-bottom: $spacing-lg;
+  }
+}

@@ -1,0 +1,53 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.pet-card {
+  @include card;
+  display: flex;
+  align-items: center;
+  gap: $spacing-lg;
+
+  @include respond-to(sm) {
+    @include flex-column;
+    text-align: center;
+  }
+}
+
+.pet-emoji {
+  font-size: $font-size-3xl;
+  flex-shrink: 0;
+}
+
+.pet-info {
+  flex: 1;
+
+  .pet-name {
+    font-size: $font-size-lg;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .pet-species {
+    font-size: $font-size-sm;
+    color: var(--text-secondary);
+  }
+
+  .pet-breed {
+    font-size: $font-size-xs;
+    color: var(--text-muted);
+  }
+}
+
+.pet-meta {
+  display: flex;
+  gap: $spacing-md;
+  margin-top: $spacing-xs;
+  font-size: $font-size-xs;
+  color: var(--text-muted);
+}
+
+.pet-actions {
+  display: flex;
+  gap: $spacing-sm;
+  flex-shrink: 0;
+}

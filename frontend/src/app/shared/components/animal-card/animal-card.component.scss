@@ -1,0 +1,34 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.animal-card {
+  @include card;
+  @include flex-column;
+  align-items: center;
+  gap: $spacing-sm;
+  text-decoration: none;
+  text-align: center;
+  transition: transform $transition-fast, box-shadow $transition-fast;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px var(--shadow-color);
+  }
+
+  .emoji {
+    font-size: $font-size-3xl;
+    line-height: 1;
+  }
+
+  .name {
+    font-weight: 600;
+    font-size: $font-size-md;
+    color: var(--text-primary);
+  }
+
+  .count {
+    font-size: $font-size-xs;
+    color: var(--text-muted);
+  }
+}

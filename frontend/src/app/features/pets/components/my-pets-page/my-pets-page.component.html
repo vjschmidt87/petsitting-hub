@@ -1,0 +1,88 @@
+<div class="pets-page">
+  <div class="page-header">
+    <h1>{{ t.t('pets.title') }}</h1>
+    <button class="btn btn--primary" (click)="openAddForm()">
+      + {{ t.t('pets.addPet') }}
+    </button>
+  </div>
+
+  <!-- Add/Edit Form Overlay -->
+  @if (showForm) {
+    <div class="overlay" (click)="cancelForm()">
+      <div class="dialog" (click)="$event.stopPropagation()">
+        <h2>{{ editingPet ? t.t('pets.editPet') : t.t('pets.addPet') }}</h2>
+
+        @if (errorMessage) {
+          <p class="form-error">{{ errorMessage }}</p>
+        }
+
+        <div class="form-group">
+          <label>{{ t.t('pets.name') }}</label>
+          <input type="text" [(ngModel)]="formData.name" [placeholder]="t.t('pets.namePlaceholder')" />
+        </div>
+
+        <div class="form-group">
+          <label>{{ t.t('pets.animalType') }}</label>
+          <select [(ngModel)]="formData.animalType">
+            @for (type of animalTypes; track type) {
+              <option [ngValue]="type">{{ animalEmojis[type] }} {{ t.t('animals.' + type) }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>{{ t.t('pets.species') }}</label>
+          <input type="text" [(ngModel)]="formData.species" [placeholder]="t.t('pets.speciesPlaceholder')" />
+        </div>
+
+        <div class="form-group">
+          <label>{{ t.t('pets.breed') }}</label>
+          <input type="text" [(ngModel)]="formData.breed" [placeholder]="t.t('pets.breedPlaceholder')" />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>{{ t.t('pets.age') }}</label>
+            <input type="number" [(ngModel)]="formData.age" min="0" />
+          </div>
+          <div class="form-group">
+            <label>{{ t.t('pets.weight') }}</label>
+            <input type="number" [(ngModel)]="formData.weight" min="0" step="0.1" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>{{ t.t('pets.description') }}</label>
+          <textarea [(ngModel)]="formData.description" [placeholder]="t.t('pets.descriptionPlaceholder')"></textarea>
+        </div>
+
+        <div class="dialog-actions">
+          <button class="btn btn--outline" (click)="cancelForm()">{{ t.t('pets.cancel') }}</button>
+          <button class="btn btn--primary" (click)="savePet()">{{ t.t('pets.save') }}</button>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Pet List -->
+  @if (loading) {
+    <div class="center-message">{{ t.t('common.loading') }}</div>
+  } @else if (pets.length === 0) {
+    <div class="empty-state">
+      <span class="empty-icon">🐾</span>
+      <p>{{ t.t('pets.noPets') }}</p>
+      <p class="hint">{{ t.t('pets.addFirst') }}</p>
+      <button class="btn btn--primary" (click)="openAddForm()">{{ t.t('pets.addPet') }}</button>
+    </div>
+  } @else {
+    <div class="pets-list">
+      @for (pet of pets; track pet.id) {
+        <app-pet-card
+          [pet]="pet"
+          (edit)="openEditForm($event)"
+          (delete)="deletePet($event)"
+        ></app-pet-card>
+      }
+    </div>
+  }
+</div>

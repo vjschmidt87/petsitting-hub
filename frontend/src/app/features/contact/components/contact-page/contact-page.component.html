@@ -1,0 +1,51 @@
+<div class="contact-page">
+  <div class="contact-card">
+    <h1>{{ t.t('contact.title') }}</h1>
+    <p class="subtitle">{{ t.t('contact.subtitle') }}</p>
+
+    @if (submitted) {
+      <div class="success-msg">
+        <span class="success-icon">&#10003;</span>
+        <p>{{ t.t('contact.successMessage') }}</p>
+        <button class="btn btn--primary" (click)="reset()">{{ t.t('contact.sendAnother') }}</button>
+      </div>
+    } @else {
+      <form (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label>{{ t.t('contact.name') }}</label>
+          <input type="text" [(ngModel)]="name" name="name"
+                 [placeholder]="t.t('contact.namePlaceholder')" required />
+        </div>
+
+        <div class="form-group">
+          <label>{{ t.t('contact.email') }}</label>
+          <input type="email" [(ngModel)]="email" name="email"
+                 [placeholder]="t.t('contact.emailPlaceholder')" required />
+        </div>
+
+        <div class="form-group">
+          <label>{{ t.t('contact.subject') }}</label>
+          <input type="text" [(ngModel)]="subject" name="subject"
+                 [placeholder]="t.t('contact.subjectPlaceholder')" required />
+        </div>
+
+        <div class="form-group">
+          <label>{{ t.t('contact.message') }}</label>
+          <textarea [(ngModel)]="message" name="message"
+                    [placeholder]="t.t('contact.messagePlaceholder')" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn--primary btn--full"
+                [disabled]="!name || !email || !subject || !message">
+          {{ t.t('contact.send') }}
+        </button>
+      </form>
+    }
+
+    <div class="contact-info">
+      <p>{{ t.t('contact.directEmail') }}
+        <a href="mailto:contact@petsittinghub.com">contact&#64;petsittinghub.com</a>
+      </p>
+    </div>
+  </div>
+</div>
