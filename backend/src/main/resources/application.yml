@@ -20,10 +20,14 @@ spring:
 
 app:
   jwt:
-    secret: cGV0c2l0dGluZ2h1YnNlY3JldGtleWZvcmp3dHRva2VuZ2VuZXJhdGlvbjEyMzQ1Njc4OTA=
+    secret: ${JWT_SECRET:cGV0c2l0dGluZ2h1YnNlY3JldGtleWZvcmp3dHRva2VuZ2VuZXJhdGlvbjEyMzQ1Njc4OTA=}
     expiration-ms: 86400000
   cors:
-    allowed-origins: http://localhost:4203
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:4203}
+  seed:
+    username: ${SEED_USERNAME:admin}
+    password: ${SEED_PASSWORD:admin123}
+    email: ${SEED_EMAIL:admin@petsitting.com}
 
 ---
 spring:

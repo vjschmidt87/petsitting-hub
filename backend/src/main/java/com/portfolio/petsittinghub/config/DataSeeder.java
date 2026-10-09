@@ -7,6 +7,7 @@ import com.portfolio.petsittinghub.enums.CareTipCategory;
 import com.portfolio.petsittinghub.enums.Difficulty;
 import com.portfolio.petsittinghub.repository.CareTipRepository;
 import com.portfolio.petsittinghub.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -17,6 +18,15 @@ public class DataSeeder implements CommandLineRunner {
     private final UserRepository userRepository;
     private final CareTipRepository careTipRepository;
     private final PasswordEncoder passwordEncoder;
+
+    @Value("${app.seed.username}")
+    private String seedUsername;
+
+    @Value("${app.seed.password}")
+    private String seedPassword;
+
+    @Value("${app.seed.email}")
+    private String seedEmail;
 
     public DataSeeder(UserRepository userRepository, CareTipRepository careTipRepository,
                       PasswordEncoder passwordEncoder) {
@@ -30,9 +40,9 @@ public class DataSeeder implements CommandLineRunner {
         if (userRepository.count() > 0) return;
 
         User admin = new User();
-        admin.setUsername("admin");
-        admin.setEmail("admin@petsitting.com");
-        admin.setPassword(passwordEncoder.encode("admin123"));
+        admin.setUsername(seedUsername);
+        admin.setEmail(seedEmail);
+        admin.setPassword(passwordEncoder.encode(seedPassword));
         admin = userRepository.save(admin);
 
         // DOG tips
